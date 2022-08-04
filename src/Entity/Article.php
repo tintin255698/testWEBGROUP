@@ -4,11 +4,15 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @Vich\Uploadable
  */
 class Article
 {
@@ -49,6 +53,18 @@ class Article
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+
+    /**
+    *  @var File|null
+     * @Vich\UploadableField(mapping="article", fileNameProperty="cover")
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime",  nullable=true)
+     * @var \DateTime
+     */
+    private $updatedAt;
 
 
     public function getId(): ?int
@@ -115,4 +131,34 @@ class Article
 
         return $this;
     }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+    public function setUpdatedAt(string $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+        return $this;
+    }
+
+    /**
+     * @return null|File
+     */
+    public function getImageFile() {
+        return $this->imageFile;
+    }
+
+    public function setImageFile( $imageFile): self
+    {
+        $this->imageFile = $imageFile;
+        // Il est important d’avoir un champ qui change à chaque upload
+        // Sinon les écouteurs d’événements ne seront pas appelés et le fichier est perdu
+        if(null !== $imageFile) {
+            $this->updated_at =  new DateTime();
+        }
+        return $this;
+    }
+
+
 }

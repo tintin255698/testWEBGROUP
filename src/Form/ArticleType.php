@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -16,7 +17,7 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, ['label' => "Titre de l'article :", 'attr'=>['placeholder'=>'Son titre'] ] )
-            ->add('content', TextareaType::class, ['label' => "Contenu de l'article :", 'attr'=>['placeholder'=>'Son contenu'] ]  )
+            ->add('content', CKEditorType::class, ['label' => "Contenu de l'article :", 'attr'=>['placeholder'=>'Son contenu'] ]  )
             ->add('cover', TextType::class, ['label' => "Image de l'article :", 'attr'=>['placeholder'=>'Image'] ] )
             ->add('valider', SubmitType::class )
         ;

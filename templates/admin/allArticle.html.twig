@@ -26,7 +26,7 @@
             <th>{{ all.id }}</th>
             <td>{{ all.title }}</td>
             <td>{{ all.slug }}</td>
-            <td>{{ all.content }}</td>
+            <td>{{ all.content|raw }}</td>
             <td>{{ all.cover }}</td>
             <td>Le {{ all.createdAt | date("m/d/Y - H:m") }}</td>
             <td><a href="{{ path('edit_article', { 'id': all.id ,  'slug': all.slug } ) }}">Editer</a></td>

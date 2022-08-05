@@ -3,12 +3,19 @@
 {% block title %}Les articles en ligne{% endblock %}
 
 {% block body %}
-<div class="container">
+
+    <section class="allArticle">
+
+    <div class="container">
 
     <h1 class="text-center mt-5 mb-5">Liste de vos articles</h1>
 
-    <table class="table table-striped table-hover mb-5">
-        <thead class="table-warning">
+    <a href="{{path('register_article')}}" class="mb-5 merci">Mettre un article sur le site</a>
+
+    {% if alls|length > 0 %}
+
+    <table class="table table-responsive text-center table-size table-striped table-hover mt-5">
+        <thead class="table-dark">
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Titre</th>
@@ -23,20 +30,27 @@
         <tbody>
         {% for all in alls  %}
         <tr>
-            <th>{{ all.id }}</th>
+            <td>{{ all.id }}</td>
             <td>{{ all.title }}</td>
             <td>{{ all.slug }}</td>
-            <td>{{ all.content|raw }}</td>
-            <td> <img src="{{ vich_uploader_asset(all, 'imageFile')}}" alt="{{ all.title }}" ></td>
+            <td class="cut">{{ all.content| raw  }}</td>
+            <td> <img src="{{ vich_uploader_asset(all, 'imageFile')}}" class="size"  alt="{{ all.title }}" ></td>
             <td>Le {{ all.createdAt | date("d/m/Y - H:m") }}</td>
             <td><a href="{{ path('edit_article', { 'id': all.id ,  'slug': all.slug } ) }} ">Editer</a></td>
             <td><a href="{{ path('delete_article', { 'id': all.id } ) }}">Supprimer</a></td>
         </tr>
+
         {% endfor %}
         </tbody>
-    </table>
+        </table>
+        {% else %}
 
-    <a href="{{path('register_article')}}">Mettre un article sur le site</a>
-    
+        <p class="merci">Merci d'ajouter un article !</p>
+
+        {% endif %}
 </div>
+
+    </section>
+
+
 {% endblock %}

@@ -1,1 +1,67 @@
 @import "~bootstrap/scss/bootstrap";
+
+
+
+/* Couleurs */
+$primary : #DC5E44;
+$secondary : #131313;
+$tertiary : #E4E6EC;
+$last : #FFFFFF;
+
+/* Body */
+body{
+  background-color: $tertiary;
+}
+
+/* Titre */
+h1{
+  color : $primary;
+  font-size: 32px;
+}
+
+ /* Header */
+.header{
+  .flex{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 105px;
+    p{
+      margin-left: 20px;
+      margin-bottom: 0;
+      font-size: 35px;
+      color: $primary
+    }
+  }
+}
+
+/* Footer */
+.footer{
+  background-color: $primary;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* allArticle */
+.allArticle{
+  margin-bottom: 300px;
+  .cut {
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    max-width: 500px;
+  }
+  .size{
+    width : 80px
+}
+  .merci{
+    font-size: 20px;
+  }
+  td, th{
+    vertical-align: middle;
+  }
+
+}

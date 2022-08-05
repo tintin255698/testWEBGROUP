@@ -24,7 +24,7 @@
             <div class="card mb-5">
                 <img class="card-img-top" src="{{ vich_uploader_asset(all, 'imageFile', 'App\\Entity\\Article') }}" alt="{{ all.title }}">
                 <div class="card-body">
-                    <h5 class="card-title">{{ all.title }}</h5>
+                    <h5 class="card-title">{{ all.title | u.truncate(50, '...', false) }}</h5>
                 </div>
             </div>
             </a>

@@ -1,17 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les articles en ligne{% endblock %}
+{% block title %}{{ articleDetail.title }}{% endblock %}
 
 {% block body %}
+
+<section class="detail">
     <div class="container">
-        <a href="{{ path('all') }}"><button type="button" class="btn btn-warning">Retour</button></a>
-
-        <img src="{{ vich_uploader_asset(articleDetail, 'imageFile', 'App\\Entity\\Article') }}" alt="">
+        <a href="{{ path('all') }}"><button type="button" class="btn">Retour</button></a>
+        <img src="{{ vich_uploader_asset(articleDetail, 'imageFile', 'App\\Entity\\Article') }}" class="detail-header" alt="{{ articleDetail.title }}">
+    <div class="resume">
+        <h1 class="text-center">{{ articleDetail.title }}</h1>
         <p>{{ articleDetail.content | raw }}</p>
-        <p>Publié le {{ articleDetail.createdAt | date('d/m/Y') }} à {{ articleDetail.createdAt | date('H:m') }}  </p>
+        <p class="date">Publié le {{ articleDetail.createdAt | date('d/m/Y') }} à {{ articleDetail.createdAt | date('H:m') }}  </p>
     </div>
-
-    
-    
+    </div>
+</section>
 
 {% endblock %}

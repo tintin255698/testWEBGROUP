@@ -3,6 +3,15 @@
 {% block title %}Les articles en ligne{% endblock %}
 
 {% block body %}
-    dgfdgfdfgdfg
+    <div class="container">
+        <a href="{{ path('all') }}"><button type="button" class="btn btn-warning">Retour</button></a>
+
+        <img src="{{ vich_uploader_asset(articleDetail, 'imageFile', 'App\\Entity\\Article') }}" alt="">
+        <p>{{ articleDetail.content | raw }}</p>
+        <p>Publié le {{ articleDetail.createdAt | date('d/m/Y') }} à {{ articleDetail.createdAt | date('H:m') }}  </p>
+    </div>
+
+    
+    
 
 {% endblock %}

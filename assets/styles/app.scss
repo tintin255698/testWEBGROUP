@@ -63,5 +63,86 @@ h1{
   td, th{
     vertical-align: middle;
   }
-
 }
+
+/* HomePage */
+
+.homepage{
+  .header{
+    border-radius: 30px;
+    &-top{
+      position:relative;
+      height: 415px;
+    }
+    &-image{
+      position:absolute;
+      z-index:1;
+    }
+    &-title{
+      text-transform: uppercase;
+      font-weight: bolder;
+      position:absolute;
+      top:20%;
+      left:20px;
+      width:600px;
+      height:400px;
+      z-index:2;
+      font-size:56px;
+      text-align: end
+    }
+  }
+  a{
+    text-decoration: none;
+  }
+  .title{
+    margin-top: 63px;
+    margin-bottom: 63px;
+    font-size: 48px;
+    font-weight: bolder;
+  }
+  .espace{
+    color: $last
+  }
+  .card{
+    width: 400px;
+    height: 418px;
+    border-radius: 30px;
+    &-img-top{
+      width: 400px;
+      height: 250px;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+    }
+    &-title{
+      font-size: 32px;
+      text-align: justify;
+      padding: 5px;
+      color: $primary;
+      font-weight: bolder;
+    }
+  }
+  strong{
+    color: $primary
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

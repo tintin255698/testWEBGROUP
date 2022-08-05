@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les articles en ligne{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <img src="{{ asset('/Head/head.png') }}" alt="header">
+
+    <h1 class="mt-5 mb-5">Nos articles </h1>
+    <div class="row mb-5">
+        {% for all in alls %}
+        <div class="col-sm-2 col col-lg-4">
+            <a href="{{ path('detail_article', { 'id': all.id ,  'slug': all.slug } ) }}">
+            <div class="card mb-5" style="width: 400px; height: 418px">
+                <img class="card-img-top" src="{{ vich_uploader_asset(all, 'imageFile', 'App\\Entity\\Article') }}" style="width: 400px; height: 250px" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ all.title }}</h5>
+                </div>
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+{% endblock %}

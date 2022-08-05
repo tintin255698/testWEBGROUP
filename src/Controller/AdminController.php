@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Article;
-use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use App\Service\Form;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,9 +27,7 @@ class AdminController extends AbstractController
      */
     public function allArticle(ArticleRepository $articleRepository):Response{
 
-        return $this->render('admin/allArticle.html.twig', [
-            'alls' => $articleRepository->findAll(),
-        ]);
+        return $this->serviceForm->searchArticle('admin/allArticle.html.twig');
     }
 
     /**
@@ -40,48 +37,26 @@ class AdminController extends AbstractController
     {
         $article = new Article();
 
-        return $this->formArticle($request, $article);
+        return $this->serviceForm->formArticle($request, $article, $this->slugger, $this->serviceForm);
     }
 
     /**
      * @Route("/admin/{id}-{slug}", name="edit_article")
      */
-    public function editArticle($id, ArticleRepository $articleRepository, Request $request):Response
+    public function editArticle($id, Request $request):Response
     {
-        $editId = $articleRepository->find($id);
+        $editId = $this->serviceForm->searchId($id);
 
-        return $this->formArticle($request, $editId);
-    }
-
-    /**
-     * Return register/edit form
-     */
-    public function formArticle($request, $article):Response
-    {
-        $form = $this->createForm(ArticleType::class, $article);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $article->setSlug($this->slugger->slug($article->getTitle()));
-            $this->serviceForm->setData($article);
-            return $this->redirectToRoute('all_article');
-        }
-
-        return $this->render('admin/registerArticle.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->serviceForm->formArticle($request, $editId, $this->slugger, $this->serviceForm);
     }
 
     /**
      * @Route("/admin/{id}", name="delete_article")
      */
-    public function deleteArticle($id, ArticleRepository $articleRepository){
-        $deleteId = $articleRepository->find($id);
+    public function deleteArticle($id):Response
+    {
+        $deleteId = $this->serviceForm->searchId($id);
 
-        $this->serviceForm->deleteData($deleteId);
-
-        return $this->redirectToRoute('all_article');
+        return  $this->serviceForm->deleteData($deleteId);
     }
-
-
 }

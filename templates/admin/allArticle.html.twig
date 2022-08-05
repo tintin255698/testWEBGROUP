@@ -14,7 +14,8 @@
 
     {% if alls|length > 0 %}
 
-    <table class="table table-responsive text-center table-size table-striped table-hover mt-5">
+    <div class="table-responsive">
+    <table class="table  text-center table-size table-striped table-hover mt-5">
         <thead class="table-dark">
         <tr>
             <th scope="col">Id</th>
@@ -43,6 +44,7 @@
         {% endfor %}
         </tbody>
         </table>
+    </div>
         {% else %}
 
         <p class="merci">Merci d'ajouter un article !</p>

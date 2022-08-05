@@ -2,29 +2,78 @@
 
 namespace App\Service;
 
+use App\Form\ArticleType;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
-class Form
+class Form extends AbstractController
 {
     public $entityManager;
+    public $articleRepository;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, ArticleRepository $articleRepository)
     {
         $this->entityManager = $entityManager;
+        $this->articleRepository = $articleRepository;
     }
 
+    /**
+     * Set data in form
+     */
     public function setData($article):void
     {
         $this->entityManager->persist($article);
         $this->entityManager->flush();
     }
 
-    public function deleteData($article)
+    /**
+     * Delete article
+     */
+    public function deleteData($article): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         $this->entityManager->remove($article);
         $this->entityManager->flush();
+        return $this->redirectToRoute('all_article');
+    }
 
+    /**
+     * List all the articles
+     */
+    public function searchArticle($adresse):Response
+    {
+        return $this->render($adresse, [
+            'alls' =>  $this->articleRepository->findAll()
+        ]);
+    }
+
+    /**
+     * List one article by ID
+     */
+    public function searchId($id): \App\Entity\Article
+    {
+        return $this->articleRepository->find($id);
+    }
+
+
+    /**
+     * Form for register/edit
+     */
+    public function formArticle($request, $article, $slugger, $serviceForm):Response
+    {
+        $form = $this->createForm(ArticleType::class, $article);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article->setSlug($slugger->slug($article->getTitle()));
+            $serviceForm->setData($article);
+            return $this->redirectToRoute('all_article');
+        }
+
+        return $this->render('admin/registerArticle.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 

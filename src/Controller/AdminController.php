@@ -33,30 +33,30 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/registerArticle", name="register_article")
      */
-    public function registerArticle(Request $request): Response
+    public function registerArticle(Request $request, $flash ='Votre article est ajouté'): Response
     {
         $article = new Article();
 
-        return $this->serviceForm->formArticle($request, $article, $this->slugger, $this->serviceForm);
+        return $this->serviceForm->formArticle($request, $article, $this->slugger, $this->serviceForm, $flash);
     }
 
     /**
      * @Route("/admin/{id}-{slug}", name="edit_article")
      */
-    public function editArticle($id, Request $request):Response
+    public function editArticle($id, Request $request, $flash ='Votre article est modifié'):Response
     {
         $editId = $this->serviceForm->searchId($id);
 
-        return $this->serviceForm->formArticle($request, $editId, $this->slugger, $this->serviceForm);
+        return $this->serviceForm->formArticle($request, $editId, $this->slugger, $this->serviceForm, $flash);
     }
 
     /**
      * @Route("/admin/{id}", name="delete_article")
      */
-    public function deleteArticle($id):Response
+    public function deleteArticle($id, $flash ='Votre article est supprimé'):Response
     {
         $deleteId = $this->serviceForm->searchId($id);
 
-        return  $this->serviceForm->deleteData($deleteId);
+        return  $this->serviceForm->deleteData($deleteId, $flash);
     }
 }

@@ -31,10 +31,11 @@ class Form extends AbstractController
     /**
      * Delete article
      */
-    public function deleteData($article): \Symfony\Component\HttpFoundation\RedirectResponse
+    public function deleteData($article, $flash): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         $this->entityManager->remove($article);
         $this->entityManager->flush();
+        $this->addFlash('success', $flash);
         return $this->redirectToRoute('all_article');
     }
 
@@ -60,7 +61,7 @@ class Form extends AbstractController
     /**
      * Form for register/edit
      */
-    public function formArticle($request, $article, $slugger, $serviceForm):Response
+    public function formArticle($request, $article, $slugger, $serviceForm, $flash):Response
     {
         $form = $this->createForm(ArticleType::class, $article);
 
@@ -68,6 +69,7 @@ class Form extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setSlug($slugger->slug($article->getTitle()));
             $serviceForm->setData($article);
+            $this->addFlash('success', $flash);
             return $this->redirectToRoute('all_article');
         }
 

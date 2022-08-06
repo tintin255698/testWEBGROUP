@@ -15,6 +15,8 @@
         <p class="espace">Découvrez <strong>l'espace</strong> comme jamais auparavant</p>
         </div>
     </div>
+
+        {% if alls|length > 0 %}
          <h1 class="title">Nos articles </h1>
     <div class="row mb-5">
         {% for all in alls %}
@@ -30,6 +32,14 @@
         </div>
         {% endfor %}
     </div>
+        {% else %}
+
+            <div class="noArticle">
+                    <p class="merci mt-5">Nous sommes désolés, nous n'avons pas mis d'article pour le moment !</p>
+                    <img src="{{ asset('/Head/solaire.jpeg') }}" alt="Système solaire">
+            </div>
+
+        {% endif %}
     </div>
 
 </section>

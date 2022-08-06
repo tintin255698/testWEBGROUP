@@ -9,18 +9,20 @@
     {% for label, messages in app.flashes  %}
         <div class="alert mb-5 alert-{{ label }} fade show text-center" role="alert" data-mdb-color="{{ label }}">
             {% for message in messages %}
-                <p>{{ message }}</p>
+                <p class="display-6">{{ message }}</p>
             {% endfor%}
             </div>
     {% endfor %}
 
     <div class="container">
 
-    <h1 class="text-center mt-5 mb-5">Liste de vos articles</h1>
+    <h1 class="text-center display-3 mt-5 mb-5">Liste de vos articles</h1>
 
-    <a href="{{path('register_article')}}" class="mb-5 merci">Mettre un article sur le site</a>
+
 
     {% if alls|length > 0 %}
+
+        <a href="{{path('register_article')}}" class="mb-5 merci">Mettre un article sur le site</a>
 
     <div class="table-responsive">
     <table class="table  text-center table-size table-striped table-hover mt-5">
@@ -55,7 +57,12 @@
     </div>
         {% else %}
 
-        <p class="merci">Merci d'ajouter un article !</p>
+            <div class="noArticle">
+        <a href="{{path('register_article')}}" class="mb-5 merci">
+        <p class="merci mt-5">Il n'y a pas d'article. Vous devez en ajouter un !</p>
+        <img src="{{ asset('/Head/station.png') }}" alt="Station spaciale internationale">
+        </a>
+            </div>
 
         {% endif %}
 </div>
